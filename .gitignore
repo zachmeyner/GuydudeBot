@@ -43,4 +43,4 @@ bin/
 
 *.env
 
-/.idea/
+.idea/
