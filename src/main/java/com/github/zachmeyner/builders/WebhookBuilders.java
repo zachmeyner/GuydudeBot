@@ -10,7 +10,7 @@ import org.javatuples.Pair;
 public class WebhookBuilders {
 
     // TODO: Create webhook and post to pin channel
-    public static void PostLit(Message msg, PinType type, long channelID, long ) {
+    public static void PostLit(Message msg, PinType type, long channelID, long whID, String whToken) {
 
     }
 
