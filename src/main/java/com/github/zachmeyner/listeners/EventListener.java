@@ -11,8 +11,6 @@ import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 
 public class EventListener extends ListenerAdapter {
 
@@ -29,11 +27,20 @@ public class EventListener extends ListenerAdapter {
         MessageHistory hist = chn.getHistoryFromBeginning(100).complete();
         Message msg = hist.getMessageById((event.getMessageIdLong()));
 
-        assert msg != null;
-        int yesCount = Objects.requireNonNull(msg.getReaction(this.yes)).getCount();
-        int noCount = Objects.requireNonNull(msg.getReaction(this.no)).getCount();
+        int yesCount = 0;
+        int noCount = 0;
 
-        System.out.println("yes: " + yesCount + "\nNo: " /*+ noCount*/);
+        // ! WHY DOES GETCOUNT RETURN ZERO ON NULL??? IT SHOULD RETURN 0!!!! THAT MEANS THERES ZERO OF THEM
+        assert msg != null;
+        try {
+            yesCount = msg.getReaction(this.yes).getCount();
+        } catch (NullPointerException ignored) {}
+
+        try {
+            noCount = msg.getReaction(this.no).getCount();
+        } catch (NullPointerException ignored) {}
+
+        System.out.println("yes: " + yesCount + "\nNo: " + noCount);
 
     }
 
