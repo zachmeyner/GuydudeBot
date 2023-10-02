@@ -1,11 +1,8 @@
 package com.github.zachmeyner;
 
-import com.github.zachmeyner.listeners.EventListener;
-import io.github.cdimascio.dotenv.Dotenv;
-import jdk.jfr.Event;
+import com.github.zachmeyner.listeners.PinEventListener;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -19,9 +16,9 @@ import javax.security.auth.login.LoginException;
  * @author github.com/Zachmeyner
  */
 
+
 public class Guydude_Bot {
 
-    private final Dotenv dotenv;
     private final ShardManager shardManager;
 
     /**
@@ -30,8 +27,8 @@ public class Guydude_Bot {
      * @throws LoginException when token is invalid.
      */
     public Guydude_Bot() throws LoginException {
-        dotenv = Dotenv.load();
-        String token = dotenv.get("TOKEN");
+
+        String token = Shared.dotenv.get("TOKEN");
 
         DefaultShardManagerBuilder builder;
         builder = DefaultShardManagerBuilder.createDefault(token);
@@ -40,7 +37,8 @@ public class Guydude_Bot {
 
         shardManager = builder.build();
 
-        shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(new PinEventListener());
+
     }
 
 
@@ -51,12 +49,7 @@ public class Guydude_Bot {
         return shardManager;
     }
 
-    /**
-     * @return dotenv
-     */
-    public Dotenv GetDotenv() {
-        return dotenv;
-    }
+
 
     public static void main(String[] args) {
         try {
