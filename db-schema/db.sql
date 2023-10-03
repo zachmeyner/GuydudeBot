@@ -22,6 +22,6 @@ CREATE TABLE `Servers` (
 	`id` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
 	`pin_count` TINYINT unsigned DEFAULT '6',
 	`pin_channel_id` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-	`webhook_id` VARCHAR(255) SET ascii COLLATE ascii_bin NOT NULL,
-	`webhook_token` VARCHAR(255) SET ascii COLLATE ascii_bin NOT NULL
+	`webhook_id` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+	`webhook_token` VARCHAR(255) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
 );
