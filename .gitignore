@@ -45,4 +45,4 @@ bin/
 
 .idea/
 
-src/main/resources/temp/
+temp/

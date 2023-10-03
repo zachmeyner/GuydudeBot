@@ -14,7 +14,6 @@ public class ServerHandler {
         String user = Shared.dotenv.get("DBUSER");
         String pass = Shared.dotenv.get("PASS");
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
             this.db = DriverManager.getConnection(dbURL, user, pass);
             // System.out.println("DB Success!\n");
         } catch (Exception e) {

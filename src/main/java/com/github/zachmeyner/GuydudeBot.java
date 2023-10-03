@@ -19,7 +19,7 @@ import javax.security.auth.login.LoginException;
  */
 
 
-public class Guydude_Bot {
+public class GuydudeBot {
 
     private final ShardManager shardManager;
 
@@ -28,7 +28,7 @@ public class Guydude_Bot {
      *
      * @throws LoginException when token is invalid.
      */
-    public Guydude_Bot() throws LoginException {
+    public GuydudeBot() throws LoginException {
 
         String token = Shared.dotenv.get("TOKEN");
 
@@ -56,7 +56,7 @@ public class Guydude_Bot {
 
     public static void main(String[] args) {
         try {
-            Guydude_Bot bot = new Guydude_Bot();
+            GuydudeBot bot = new GuydudeBot();
             System.out.println("Bot running!");
         } catch (LoginException e) {
             System.out.println("Bad Token");

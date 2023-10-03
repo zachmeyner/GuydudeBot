@@ -52,7 +52,7 @@ public class WebhookBuilder {
 
         if (!attachments.isEmpty()) {
             String ext = attachments.get(0).getFileExtension();
-            File fs = new File("src/main/resources/temp/tmp." + ext);
+            File fs = new File("temp/tmp." + ext);
             attachments.get(0).getProxy().downloadToFile(fs);
             try {
                 WebhookMessageBuilder builder = new WebhookMessageBuilder()
