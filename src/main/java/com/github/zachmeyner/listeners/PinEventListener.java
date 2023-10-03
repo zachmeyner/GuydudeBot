@@ -49,10 +49,6 @@ public class PinEventListener extends ListenerAdapter {
 
         PinHandler db = new PinHandler();
 
-        if (!db.CheckForServer(serverID)) {
-            db.closeDB();
-            return;
-        }
         long pinChannel = db.GetPinChannel(serverID);
 
         // Cannot pin messages that are pinned
@@ -63,6 +59,11 @@ public class PinEventListener extends ListenerAdapter {
         db.WritePinCount(messageID, serverID, yesCount, noCount);
 
         if (db.CheckPinned(messageID, serverID)) {
+            db.closeDB();
+            return;
+        }
+
+        if (!db.CheckForServer(serverID)) {
             db.closeDB();
             return;
         }
