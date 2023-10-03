@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.github.zachmeyner.builders.WebhookBuilder.CreateWebhook;
 
 public class CommandManager extends ListenerAdapter {
 

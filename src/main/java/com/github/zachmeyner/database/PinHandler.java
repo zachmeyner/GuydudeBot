@@ -3,7 +3,6 @@ package com.github.zachmeyner.database;
 import com.github.zachmeyner.Shared;
 import org.javatuples.Pair;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

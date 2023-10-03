@@ -45,12 +45,7 @@ public class GuydudeBot {
     }
 
 
-    /**
-     * @return shardManager for bot
-     */
-    public ShardManager GetShardManager() {
-        return shardManager;
-    }
+
 
 
 

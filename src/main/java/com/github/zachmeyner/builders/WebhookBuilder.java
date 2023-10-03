@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.javatuples.Pair;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,16 +52,23 @@ public class WebhookBuilder {
 
 
         if (!attachments.isEmpty()) {
-            String ext = attachments.get(0).getFileExtension();
-            File fs = new File("temp/tmp." + ext);
-            attachments.get(0).getProxy().downloadToFile(fs);
+            List<File> fsList = new ArrayList<>();
+            for (int i = 0; i < attachments.size(); i++) {
+                String ext = attachments.get(i).getFileExtension();
+                fsList.add(new File("temp/tmp" + i + '.' + ext));
+                attachments.get(i).getProxy().downloadToFile(fsList.get(i)).join();
+            }
+
             try {
                 WebhookMessageBuilder builder = new WebhookMessageBuilder()
                         .setUsername(msg.getAuthor().getName())
                         .setAvatarUrl(msg.getAuthor().getAvatarUrl())
                         .setContent(msg.getContentDisplay())
-                        .addFile(fs)
                         .addEmbeds(embed);
+
+                for (File fs : fsList) {
+                    builder.addFile(fs);
+                }
                 client.send(builder.build());
                 return;
             } catch (Exception ignore) {}
