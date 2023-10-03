@@ -30,10 +30,8 @@ public class GuydudeBot {
      */
     public GuydudeBot() throws LoginException {
 
-        System.out.println("Setting up Token");
         String token = Shared.dotenv.get("TOKEN");
 
-        System.out.println("Setting up DefaultShardManagerBuilder");
         DefaultShardManagerBuilder builder;
         builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
@@ -41,18 +39,11 @@ public class GuydudeBot {
         builder.enableIntents(GatewayIntent.MESSAGE_CONTENT);
 
 
-        System.out.println("Building ShardManager");
         shardManager = builder.build();
 
-        System.out.println("Adding Listeners");
         shardManager.addEventListener(new PinEventListener(), new CommandManager());
 
     }
-
-
-
-
-
 
     public static void main(String[] args) {
         try {
