@@ -44,3 +44,5 @@ bin/
 *.env
 
 .idea/
+
+src/main/resources/temp/

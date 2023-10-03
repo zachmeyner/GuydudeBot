@@ -1,6 +1,7 @@
 package com.github.zachmeyner.database;
 
 import com.github.zachmeyner.Shared;
+import org.javatuples.Pair;
 
 import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class PinHandler {
             this.db = DriverManager.getConnection(dbURL, user, pass);
             // System.out.println("DB Success!\n");
         } catch (Exception e) {
-            System.out.println("Failed in Handelers\n" + e);
+            System.out.println("Failed in PinHandler\n" + e);
         }
     }
 
@@ -131,6 +132,36 @@ public class PinHandler {
             return rv;
         } catch (Exception e) {
             System.out.println("Failed in GetPinChannel\n" + e);
+        }
+
+        return rv;
+    }
+
+    public boolean CheckForServer(long serverID) {
+        String query = "SELECT * FROM Servers WHERE id = " + serverID + ';';
+
+        try {
+            Statement st = this.db.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            return rs.isBeforeFirst();
+        } catch (Exception e) {
+            System.out.println("Failed in CheckForServer\n" + e);
+        }
+        return false;
+    }
+
+    public Pair<Long, String> GetWebhookInfo(long serverID) {
+        String query = "SELECT webhook_id, webhook_token FROM Servers WHERE id = " + serverID + ';';
+        Pair<Long, String> rv = new Pair<>((long) -1, "");
+
+        try {
+            Statement st = this.db.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            rs.next();
+            rv = Pair.with(rs.getLong(1), rs.getString(2));
+            return rv;
+        } catch (Exception e) {
+            System.out.println("Failed in GetWebhookInfo\n" + e);
         }
 
         return rv;

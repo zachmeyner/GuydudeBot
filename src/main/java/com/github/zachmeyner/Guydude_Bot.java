@@ -1,8 +1,10 @@
 package com.github.zachmeyner;
 
+import com.github.zachmeyner.listeners.CommandManager;
 import com.github.zachmeyner.listeners.PinEventListener;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -34,10 +36,11 @@ public class Guydude_Bot {
         builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("Billy Madison"));
+        builder.enableIntents(GatewayIntent.MESSAGE_CONTENT);
 
         shardManager = builder.build();
 
-        shardManager.addEventListener(new PinEventListener());
+        shardManager.addEventListener(new PinEventListener(), new CommandManager());
 
     }
 
