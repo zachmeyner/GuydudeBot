@@ -40,4 +40,16 @@ public class ServerHandler {
             System.out.println("Failed in CreateDefaultDirectory\n" + e);
         }
     }
+
+    public void DeleteEntry(long serverID) {
+        String query = "DELETE FROM Servers WHERE id = " + serverID + ';';
+
+        try {
+            Statement st = this.db.createStatement();
+            st.executeUpdate(query);
+
+        } catch (Exception e) {
+            System.out.println("Failed in DeleteEntry\n" + e);
+        }
+    }
 }
