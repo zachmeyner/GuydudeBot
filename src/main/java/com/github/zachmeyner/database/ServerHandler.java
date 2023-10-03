@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+// TODO: Documentation code
+
 public class ServerHandler {
     private Connection db;
 
@@ -50,6 +52,17 @@ public class ServerHandler {
 
         } catch (Exception e) {
             System.out.println("Failed in DeleteEntry\n" + e);
+        }
+    }
+
+    public void ChangePinCount(long serverID, int pinCount) {
+        String query = "UPDATE Servers SET pin_count = " + pinCount;
+
+        try {
+            Statement st = this.db.createStatement();
+            st.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println("Failed in ChangePinCount\n" + e);
         }
     }
 }

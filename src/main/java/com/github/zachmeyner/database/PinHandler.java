@@ -2,11 +2,12 @@ package com.github.zachmeyner.database;
 
 import com.github.zachmeyner.Shared;
 import org.javatuples.Pair;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+// TODO: Documentation code
 
 public class PinHandler {
     private Connection db;
