@@ -43,7 +43,7 @@ public class WebhookBuilder {
         for (MessageEmbed msgEmbed : msg.getEmbeds()) {
             embedBuilder = new WebhookEmbedBuilder()
                     .setTitle(new WebhookEmbed.EmbedTitle(
-                            msgEmbed.getTitle(),
+                            (msgEmbed.getTitle() == null) ? "" : msgEmbed.getTitle(),
                             msgEmbed.getUrl()
                     ))
                     .setDescription(msgEmbed.getDescription())
@@ -63,7 +63,7 @@ public class WebhookBuilder {
 
             if (msgEmbed.getFooter() != null) {
                 embedBuilder.setFooter(new WebhookEmbed.EmbedFooter(
-                        msgEmbed.getFooter().getText(),
+                        (msgEmbed.getFooter().getText() == null) ? "" : msgEmbed.getFooter().getText(),
                         msgEmbed.getFooter().getIconUrl()
                 ));
             }
@@ -72,8 +72,8 @@ public class WebhookBuilder {
                 embedBuilder.addField(
                         new WebhookEmbed.EmbedField(
                                 fld.isInline(),
-                                fld.getName(),
-                                fld.getValue()
+                                (fld.getName() == null) ? "" : fld.getName(),
+                                (fld.getValue() == null) ? "" : fld.getValue()
                         )
                 );
             }
@@ -123,7 +123,6 @@ public class WebhookBuilder {
                 builder.addEmbeds(embed);
 
                 client.send(builder.build());
-                return;
             } catch (Exception ignore) {
             }
 
