@@ -8,6 +8,7 @@ import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import com.github.zachmeyner.types.PinType;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Webhook;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.javatuples.Pair;
@@ -36,6 +37,52 @@ public class WebhookBuilder {
     public void PostLit(Message msg, PinType type) {
         List<Message.Attachment> attachments = msg.getAttachments();
         WebhookEmbedBuilder embedBuilder;
+        List<WebhookEmbed> webhookEmbeds = new ArrayList<>();
+
+
+        for (MessageEmbed msgEmbed : msg.getEmbeds()) {
+            embedBuilder = new WebhookEmbedBuilder()
+                    .setTitle(new WebhookEmbed.EmbedTitle(
+                            msgEmbed.getTitle(),
+                            msgEmbed.getUrl()
+                    ))
+                    .setDescription(msgEmbed.getDescription())
+                    .setAuthor(new WebhookEmbed.EmbedAuthor(
+                            (msgEmbed.getAuthor().getName() == null) ? "" : msgEmbed.getAuthor().getName(),
+                            msgEmbed.getAuthor().getIconUrl(),
+                            msgEmbed.getAuthor().getUrl()
+                    ))
+                    .setColor(msgEmbed.getColorRaw())
+                    // .setFooter(new WebhookEmbed.EmbedFooter(
+                    //         msgEmbed.getFooter().getText(),
+                    //         msgEmbed.getFooter().getIconUrl()
+                    // ))
+                    .setImageUrl((msgEmbed.getImage() == null) ? "" : msgEmbed.getImage().getUrl())
+                    .setThumbnailUrl((msgEmbed.getThumbnail() == null) ? "" : msgEmbed.getThumbnail().getUrl())
+                    .setTimestamp(msgEmbed.getTimestamp());
+
+            if (msgEmbed.getFooter() != null) {
+                embedBuilder.setFooter(new WebhookEmbed.EmbedFooter(
+                        msgEmbed.getFooter().getText(),
+                        msgEmbed.getFooter().getIconUrl()
+                ));
+            }
+
+            for (MessageEmbed.Field fld : msgEmbed.getFields()) {
+                embedBuilder.addField(
+                        new WebhookEmbed.EmbedField(
+                                fld.isInline(),
+                                fld.getName(),
+                                fld.getValue()
+                        )
+                );
+            }
+
+            webhookEmbeds.add(embedBuilder.build());
+            embedBuilder.reset();
+
+        }
+
 
         if (type == PinType.LIT) {
             embedBuilder = new WebhookEmbedBuilder()
@@ -51,7 +98,7 @@ public class WebhookBuilder {
         WebhookEmbed embed = embedBuilder.build();
 
 
-        if (!attachments.isEmpty()) {
+
             List<File> fsList = new ArrayList<>();
             for (int i = 0; i < attachments.size(); i++) {
                 String ext = attachments.get(i).getFileExtension();
@@ -63,25 +110,23 @@ public class WebhookBuilder {
                 WebhookMessageBuilder builder = new WebhookMessageBuilder()
                         .setUsername(msg.getAuthor().getName())
                         .setAvatarUrl(msg.getAuthor().getAvatarUrl())
-                        .setContent(msg.getContentDisplay())
-                        .addEmbeds(embed);
+                        .setContent(msg.getContentDisplay());
 
                 for (File fs : fsList) {
                     builder.addFile(fs);
                 }
+
+                for (WebhookEmbed fin : webhookEmbeds) {
+                    builder.addEmbeds(fin);
+                }
+
+                builder.addEmbeds(embed);
+
                 client.send(builder.build());
                 return;
-            } catch (Exception ignore) {}
-        }
+            } catch (Exception ignore) {
+            }
 
-        try {
-            WebhookMessageBuilder builder = new WebhookMessageBuilder()
-                    .setUsername(msg.getAuthor().getName())
-                    .setAvatarUrl(msg.getAuthor().getAvatarUrl())
-                    .setContent(msg.getContentDisplay())
-                    .addEmbeds(embed);
-            client.send(builder.build());
-        } catch (Exception ignore) {}
     }
 
 
