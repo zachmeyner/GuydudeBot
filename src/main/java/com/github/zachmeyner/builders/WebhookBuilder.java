@@ -40,6 +40,8 @@ public class WebhookBuilder {
         List<WebhookEmbed> webhookEmbeds = new ArrayList<>();
 
 
+
+
         for (MessageEmbed msgEmbed : msg.getEmbeds()) {
             embedBuilder = new WebhookEmbedBuilder()
                     .setTitle(new WebhookEmbed.EmbedTitle(
@@ -47,16 +49,7 @@ public class WebhookBuilder {
                             msgEmbed.getUrl()
                     ))
                     .setDescription(msgEmbed.getDescription())
-                    .setAuthor(new WebhookEmbed.EmbedAuthor(
-                            (msgEmbed.getAuthor().getName() == null) ? "" : msgEmbed.getAuthor().getName(),
-                            msgEmbed.getAuthor().getIconUrl(),
-                            msgEmbed.getAuthor().getUrl()
-                    ))
                     .setColor(msgEmbed.getColorRaw())
-                    // .setFooter(new WebhookEmbed.EmbedFooter(
-                    //         msgEmbed.getFooter().getText(),
-                    //         msgEmbed.getFooter().getIconUrl()
-                    // ))
                     .setImageUrl((msgEmbed.getImage() == null) ? "" : msgEmbed.getImage().getUrl())
                     .setThumbnailUrl((msgEmbed.getThumbnail() == null) ? "" : msgEmbed.getThumbnail().getUrl())
                     .setTimestamp(msgEmbed.getTimestamp());
@@ -66,6 +59,14 @@ public class WebhookBuilder {
                         (msgEmbed.getFooter().getText() == null) ? "" : msgEmbed.getFooter().getText(),
                         msgEmbed.getFooter().getIconUrl()
                 ));
+            }
+
+            if (msgEmbed.getAuthor() != null) {
+                embedBuilder.setAuthor(new WebhookEmbed.EmbedAuthor(
+                                (msgEmbed.getAuthor().getName() == null) ? "" : msgEmbed.getAuthor().getName(),
+                                msgEmbed.getAuthor().getIconUrl(),
+                                msgEmbed.getAuthor().getUrl()
+                        ));
             }
 
             for (MessageEmbed.Field fld : msgEmbed.getFields()) {
