@@ -88,11 +88,14 @@ public class WebhookBuilder {
         if (type == PinType.LIT) {
             embedBuilder = new WebhookEmbedBuilder()
                     .setTitle(new WebhookEmbed.EmbedTitle(":white_check_mark: This goes Hard :white_check_mark:", null))
-                    .setDescription("[Link](" + msg.getJumpUrl() + ")");
+                    .setDescription("[Link](" + msg.getJumpUrl() + ")")
+                    .setColor(5763719);
+
         } else {
             embedBuilder = new WebhookEmbedBuilder()
                     .setTitle(new WebhookEmbed.EmbedTitle(":x: This does not Hard :x:", null))
-                    .setDescription("[Link](" + msg.getJumpUrl() + ")");
+                    .setDescription("[Link](" + msg.getJumpUrl() + ")")
+                    .setColor(15548997);
 
         }
 
