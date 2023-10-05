@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    image: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PASS}
+      MYSQL_DATABASE: ${DBNAME}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/:/docker-entrypoint-initdb.d
+    ports:
+      - "5000:3306"
+
+  bot:
+    image: "gradle:8.2-jdk17"
+    working_dir: /home/gradle
+    command: ./gradlew run
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - ./:/home/gradle
+    network_mode: host
+
+
+volumes:
+  db_data:

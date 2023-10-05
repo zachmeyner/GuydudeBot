@@ -14,6 +14,7 @@ public class PinHandler {
 
     public PinHandler() {
         String dbURL = Shared.dotenv.get("DATABASE");
+        dbURL = dbURL + Shared.dotenv.get("DBNAME");
         String user = Shared.dotenv.get("DBUSER");
         String pass = Shared.dotenv.get("PASS");
         try {

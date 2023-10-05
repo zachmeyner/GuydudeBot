@@ -13,6 +13,7 @@ public class ServerHandler {
 
     public ServerHandler() {
         String dbURL = Shared.dotenv.get("DATABASE");
+        dbURL = dbURL + Shared.dotenv.get("DBNAME");
         String user = Shared.dotenv.get("DBUSER");
         String pass = Shared.dotenv.get("PASS");
         try {
