@@ -46,6 +46,7 @@ public class GuydudeBot {
     }
 
     public static void main(String[] args) {
+        System.out.println("Bot starting");
         try {
             GuydudeBot bot = new GuydudeBot();
             System.out.println("Bot running!");
