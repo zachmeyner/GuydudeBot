@@ -57,7 +57,7 @@ public class ServerHandler {
     }
 
     public void ChangePinCount(long serverID, int pinCount) {
-        String query = "UPDATE Servers SET pin_count = " + pinCount;
+        String query = "UPDATE Servers SET pin_count = " + pinCount + "WHERE id = " + serverID + ';';
 
         try {
             Statement st = this.db.createStatement();
