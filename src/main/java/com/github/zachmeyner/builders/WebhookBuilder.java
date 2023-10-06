@@ -112,8 +112,8 @@ public class WebhookBuilder {
 
             try {
                 WebhookMessageBuilder builder = new WebhookMessageBuilder()
-                        .setUsername(msg.getAuthor().getName())
-                        .setAvatarUrl(msg.getAuthor().getAvatarUrl())
+                        .setUsername(msg.getAuthor().getEffectiveName())
+                        .setAvatarUrl(msg.getAuthor().getEffectiveAvatarUrl())
                         .setContent(msg.getContentDisplay());
 
                 for (File fs : fsList) {
