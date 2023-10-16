@@ -93,7 +93,7 @@ public class WebhookBuilder {
 
         } else {
             embedBuilder = new WebhookEmbedBuilder()
-                    .setTitle(new WebhookEmbed.EmbedTitle(":x: This does not Hard :x:", null))
+                    .setTitle(new WebhookEmbed.EmbedTitle(":x: This does not go Hard :x:", null))
                     .setDescription("[Link](" + msg.getJumpUrl() + ")")
                     .setColor(15548997);
 
